@@ -1,5 +1,4 @@
 #include "D01.h"
-#include "../util/Sort.h"
 #include "../util/ListUtil.h"
 
 #include <iostream>
@@ -20,8 +19,8 @@ void D01::initializeInput()
         l2.push_back(i2);
     }
 
-    Sort::selectionSort(l1);
-    Sort::selectionSort(l2);
+    ListUtil::selectionSort(l1);
+    ListUtil::selectionSort(l2);
 }
 
 
