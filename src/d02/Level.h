@@ -5,11 +5,23 @@
 #include <fstream>
 #include <vector>
 
-using level_t = std::vector<int>;
+class Level
+{
+private:
+    std::vector<int> m_steps { };
 
-std::ifstream& operator>>(std::ifstream& input, level_t& val);
-std::ostream& operator<<(std::ostream& output, level_t& val);
+public:
+    Level(std::vector<int> steps = { }): m_steps { steps } { };
+    Level(const Level& level): m_steps { level.m_steps } { };
 
-level_t cloneLevel(const level_t& toClone);
+    bool isSafe();
+    bool isSafeWithDampener();
+    bool isStepSafe(int x, int y, bool isIncreasing);
+
+    friend std::ifstream& operator>>(std::ifstream& input, Level& val);
+    friend std::ostream& operator<<(std::ostream& output, const Level& val);
+};
+
+
 
 #endif

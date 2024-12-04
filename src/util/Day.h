@@ -8,21 +8,30 @@
 class Day {
 private:
     std::string   m_inputFolder { "./src/inputs/" };
-    std::ifstream m_input;
+
+protected:
+    std::ifstream m_input {};
+    std::string   m_day {};
 
 public:
-    Day(std::string file) {
-        m_input.open(m_inputFolder + file);
-        if (!m_input) std::cerr << "failed to open file " << m_inputFolder << file;
+    Day(std::string day)
+    : m_day { day } {
+        m_input.open(m_inputFolder + day + ".txt");
+        if (!m_input) {
+            std::cerr << "failed to open file " << m_inputFolder << day << ".txt";
+        }
     };
 
-    ~Day() {
+    virtual ~Day() {
         m_input.close();
     };
 
-    inline void run() {
-        std::cerr << "No implementation for void run() found\n";
-    }
+    void run();
+
+protected:
+    virtual void initializeInput() = 0;
+    virtual void p1() = 0;
+    virtual void p2() = 0;
 
     inline std::ifstream& getInput() {
         return m_input;
