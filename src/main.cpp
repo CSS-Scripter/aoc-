@@ -1,10 +1,12 @@
 #include "d01/D01.h"
 #include "d02/D02.h"
+#include "d03/D03.h"
 
 int main()
 {
     D01().run();
     D02().run();
+    D03().run();
     
     return 0;
 }
