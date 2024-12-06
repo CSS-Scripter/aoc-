@@ -20,6 +20,7 @@ int D03::p1() {
     {
         for (size_t i = 0; i < line.size(); i++)
         {
+            if (line.at(i) != 'm') continue;
             Optional<Pair<int>> mul = findMul(line, i);
             if (mul.hasValue()) {
                 int x { mul.getValue().first };
@@ -39,6 +40,7 @@ int D03::p2() {
     {
         for (size_t i = 0; i < line.size(); i++)
         {
+            if (line.at(i) != 'm' && line.at(i) != 'd') continue;
             if (enabled) {
                 Optional<Pair<int>> mul = findMul(line, i);
                 if (mul.hasValue()) {
