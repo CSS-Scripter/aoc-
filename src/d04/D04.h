@@ -22,7 +22,7 @@ protected:
     int p2();
 
 private:
-    bool checkXMAS(Pair<size_t> from, Pair<int> direction);
+    bool checkXMAS(Pair<int> from, Pair<int> direction);
     bool checkX_MAS(Pair<size_t> from);
 };
 
