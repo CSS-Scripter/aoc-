@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <string>
+#include <string_view>
 
 
 void D03::initializeInput() {
@@ -62,7 +63,7 @@ int D03::p2() {
 };
 
 
-bool D03::findSubstring(std::string line, std::string substr, size_t startAt)
+bool D03::findSubstring(std::string_view line, std::string substr, size_t startAt)
 {
     for (size_t j { 0 }; j < substr.size(); ++j)
     {
@@ -76,7 +77,7 @@ bool D03::findSubstring(std::string line, std::string substr, size_t startAt)
 // Checks if the current position is "mul([0-999],[0-999])"
 // Returns 2 digits multiplied
 // Returns 0 when no mul found
-Optional<Pair<int>> D03::findMul(std::string line, size_t i)
+Optional<Pair<int>> D03::findMul(std::string_view line, size_t i)
 {
     // Check if line at pos i starts with "mul("
     std::vector<char> toFind { 'm', 'u', 'l', '(' };
@@ -108,7 +109,7 @@ Optional<Pair<int>> D03::findMul(std::string line, size_t i)
 }
 
 // Return 2 ints : (value, ends-at)
-Optional<Pair<int>> D03::findDigitUntilChar(std::string line, size_t i, char separator)
+Optional<Pair<int>> D03::findDigitUntilChar(std::string_view line, size_t i, char separator)
 {
     std::vector<int> buff { };
     while(true) {

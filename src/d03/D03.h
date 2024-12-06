@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <string_view>
 
 class D03 : Day
 {
@@ -23,9 +24,9 @@ protected:
     void initializeInput();
 
 private:
-    bool findSubstring(std::string line, std::string substr, size_t startAt);
-    Optional<Pair<int>> findMul(std::string line, size_t i);
-    Optional<Pair<int>> findDigitUntilChar(std::string line, size_t i, char separator);
+    bool findSubstring(std::string_view line, std::string substr, size_t startAt);
+    Optional<Pair<int>> findMul(std::string_view line, size_t i);
+    Optional<Pair<int>> findDigitUntilChar(std::string_view line, size_t i, char separator);
     int parseInt(char c);
     int constructInt(std::vector<int> buff);
 };
