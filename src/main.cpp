@@ -3,6 +3,7 @@
 #include "d03/D03.h"
 #include "d04/D04.h"
 #include "d05/D05.h"
+#include "d06/D06.h"
 
 int main()
 {
@@ -11,6 +12,7 @@ int main()
     D03().run();
     D04().run();
     D05().run();
+    D06().run();
     
     return 0;
 }

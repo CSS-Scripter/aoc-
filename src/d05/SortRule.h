@@ -2,7 +2,6 @@
 #define SORT_RULE_H
 
 #include <vector>
-#include <fstream>
 
 class SortRule {
 private:
@@ -11,17 +10,8 @@ private:
 public:
     SortRule() = default;
 
-    // check (v in m_lower)
-    bool isLower(int v) {
-        for (int l : m_lower) {
-            if (l == v) return true;
-        }
-        return false;
-    }
-
-    void add(int v) {
-        m_lower.push_back(v);
-    }
+    bool isLower(int v) const;
+    void add(int v);
 };
 
 #endif

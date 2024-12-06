@@ -24,21 +24,4 @@ public:
     friend std::istream& operator>>(std::istream& input, BookUpdates& val);
 };
 
-inline std::istream& operator>>(std::istream& input, BookUpdates& val)
-{
-    val.m_updates.clear();
-    std::string line;
-    if (std::getline(input, line)) {
-        std::istringstream iss(line);
-        int x {};
-        char c {};
-        while (iss >> x) {
-            val.m_updates.push_back(x);
-            iss >> c;
-        }
-    }
-
-    return input;
-}
-
 #endif
