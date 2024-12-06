@@ -11,22 +11,20 @@ void D02::initializeInput() {
     }
 }
 
-void D02::p1() {
+int D02::p1() {
     int safeCount { 0 };
     for (Level level : m_levels) {
         if (level.isSafe()) ++safeCount;
     }
-
-    std::cout << "Part 1: " << safeCount << '\n';
+    return safeCount;
 }
 
-void D02::p2() {
+int D02::p2() {
     int safeCount { 0 };
     for (Level level : m_levels)
     {
         if (level.isSafeWithDampener()) safeCount++;
     }
-
-    std::cout << "Part 2: " << safeCount << '\n';
+    return safeCount;
 }
 

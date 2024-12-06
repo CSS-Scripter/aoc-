@@ -24,7 +24,7 @@ void D01::initializeInput()
 }
 
 
-void D01::p1()
+int D01::p1()
 {
     int difference { 0 };
     for (size_t i { 0 }; i < l1.size(); ++i)
@@ -35,12 +35,11 @@ void D01::p1()
         if (i1 > i2) difference += (i1 - i2);
         else difference += (i2 - i1);
     }
-
-    std::cout << "Part 1: " << difference << '\n';
+    return difference;
 }
 
 
-void D01::p2()
+int D01::p2()
 {
     int total { 0 };
     for (size_t i { 0 }; i < l1.size(); ++i)
@@ -48,6 +47,5 @@ void D01::p2()
         int i1 { l1[i] };
         total += i1 * ListUtil::count<int>(l2, i1);
     }
-
-    std::cout << "Part 2: " << total << '\n';
+    return total;
 }

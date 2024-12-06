@@ -18,8 +18,8 @@ public:
 
 protected:
     void initializeInput();
-    void p1();
-    void p2();
+    int p1();
+    int p2();
 
 private:
     bool checkXMAS(Pair<size_t> from, Pair<int> direction);

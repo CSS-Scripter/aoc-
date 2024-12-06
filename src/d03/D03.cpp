@@ -14,7 +14,7 @@ void D03::initializeInput() {
     while (std::getline(m_input, line)) m_lines.push_back(line);
 };
 
-void D03::p1() {
+int D03::p1() {
     int total { 0 };
     for (std::string line : m_lines)
     {
@@ -29,11 +29,10 @@ void D03::p1() {
             }
         }
     }
-
-    std::cout << "part 1: " << total << '\n';
+    return total;
 };
 
-void D03::p2() {
+int D03::p2() {
     bool enabled { true };
     int total { 0 };
     for (std::string line : m_lines)
@@ -57,7 +56,7 @@ void D03::p2() {
             }
         }
     }
-    std::cout << "part 2: " << total << '\n';
+    return total;
 };
 
 

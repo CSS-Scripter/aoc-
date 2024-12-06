@@ -17,7 +17,7 @@ void D04::initializeInput()
     }
 }
 
-void D04::p1()
+int D04::p1()
 {
     std::vector<Pair<int>> directions {
         {  0,  1 },
@@ -43,11 +43,10 @@ void D04::p1()
                 if (checkXMAS(from, dir)) ++total;
         }
     }
-
-    std::cout << "Part 1: " << total << '\n';
+    return total;
 }
 
-void D04::p2()
+int D04::p2()
 {
     int total { 0 };
     for (size_t y { 0 }; y < m_grid.size(); ++y)
@@ -59,8 +58,7 @@ void D04::p2()
             if (checkX_MAS({ x, y })) ++total;
         }
     }
-
-    std::cout << "Part 2: " << total << '\n';
+    return total;
 }
 
 bool D04::checkXMAS(Pair<size_t> from, Pair<int> direction)

@@ -18,8 +18,8 @@ public:
     void run() { Day::run(); };
 
 protected:
-    void p1();
-    void p2();
+    int p1();
+    int p2();
     void initializeInput();
 
 private:
