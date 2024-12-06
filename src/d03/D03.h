@@ -22,6 +22,7 @@ protected:
     void p2();
     void initializeInput();
 
+private:
     bool findSubstring(std::string line, std::string substr, size_t startAt);
     Optional<Pair<int>> findMul(std::string line, size_t i);
     Optional<Pair<int>> findDigitUntilChar(std::string line, size_t i, char separator);
