@@ -18,6 +18,5 @@ void Day::run() {
     std::cout << "(" << c.elapsed() << "ms)\n";
 
     std::cout << "[" << p1MS << "ms] Part 1: " << p1Result << '\n';
-    std::cout << "[" << p2MS << "ms] Part 2: " << p2Result << '\n';
-    std::cout << "\n";
+    std::cout << "[" << p2MS << "ms] Part 2: " << p2Result << "\n\n";
 }
