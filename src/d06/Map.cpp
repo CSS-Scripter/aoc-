@@ -1,9 +1,11 @@
 #include "Map.h"
 #include "../util/Pair.h"
+#include "../util/ListUtil.h"
 
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 
 bool Map::step() {
@@ -39,19 +41,49 @@ int Map::countVisited() {
     return total;
 }
 
-bool Map::wouldEnterLoop() {
-    return m_guard.wouldEnterLoop();
+bool Map::isInLoop() {
+    return m_guard.isInLoop();
 }
 
+std::vector<Pair<size_t>> Map::getSteps() {
+    std::vector<Pair<Pair<size_t>, Guard::Direction>> history { m_guard.getHistory() };
+
+    std::vector<Pair<size_t>> steps { };
+    for (Pair<Pair<size_t>, Guard::Direction> step : history) {
+        steps.push_back(step.first);
+    }
+
+    return ListUtil::unique(steps);
+}
+
+
+void Map::resetTmpObstacle() {
+    if (!m_tmpObstacle.hasValue()) return;
+
+    Pair<size_t> tmpPos = m_tmpObstacle.getValue();
+    m_map.at(tmpPos.second)[tmpPos.first] = Map::empty;
+
+    m_tmpObstacle.reset();
+}
+
+void Map::setTmpObstacle(Pair<size_t> pos) {
+    if (m_tmpObstacle.hasValue()) resetTmpObstacle();
+
+    m_map.at(pos.second)[pos.first] = Map::obstacle;
+    m_tmpObstacle.setValue(pos);
+}
+
+
 void Map::reset() {
+    resetTmpObstacle();
     m_guard.reset();
     for (size_t y { 0 }; y < m_map.size(); ++y)
     {
         std::vector<Map::TileType> row { m_map.at(y) };
         for (size_t x { 0 }; x < row.size(); ++x)
         {
-            if (m_guard.getPosition() == Pair<size_t>{ x, y }) row[x] = Map::visited;
-            else if (row.at(x) == Map::visited) row[x] = Map::empty;
+            if (m_guard.getPosition() == Pair<size_t>{ x, y }) m_map[y][x] = Map::visited;
+            else if (row.at(x) == Map::visited) m_map[y][x] = Map::empty;
         }
     }
 }
@@ -93,7 +125,8 @@ std::ostream& operator<<(std::ostream& output, const Map& val)
         {
             Map::TileType tile { row.at(x) };
             Pair<size_t> guard { val.m_guard.getPosition() };
-            if (guard.first == x && guard.second == y) output << '^';
+            if (val.m_tmpObstacle.hasValue() && val.m_tmpObstacle.getValue().first == x && val.m_tmpObstacle.getValue().second == y) output << 'O';
+            else if (guard.first == x && guard.second == y) output << '^';
             else if (tile == Map::empty)               output << '.';
             else if (tile == Map::obstacle)            output << '#';
             else if (tile == Map::visited)             output << 'X';

@@ -5,11 +5,11 @@
 Pair<int> Guard::peek() {
     switch (m_direction)
     {
-        case up:    return { m_x, m_y-1 };
-        case down:  return { m_x, m_y+1 };
-        case left:  return { m_x-1, m_y };
-        case right: return { m_x+1, m_y };
-        default: return { m_x, m_y };
+        case up:    return { m_x,   m_y-1 };
+        case down:  return { m_x,   m_y+1 };
+        case left:  return { m_x-1, m_y   };
+        case right: return { m_x+1, m_y   };
+        default:    return { m_x,   m_y   };
     }
 }
 
@@ -18,7 +18,6 @@ Pair<size_t> Guard::getPosition() const {
 }
 
 void Guard::move() {
-    addToHistory();
     switch (m_direction)
     {
         case up:    m_y -= 1; break;
@@ -27,11 +26,12 @@ void Guard::move() {
         case right: m_x += 1; break;
         default: break;
     }
+    addToHistory();
 }
 
 void Guard::turnRight() {
-    addToHistory();
     m_direction = getTurnRightDirection();
+    addToHistory();
 }
 
 Guard::Direction Guard::getTurnRightDirection() {
@@ -45,36 +45,22 @@ Guard::Direction Guard::getTurnRightDirection() {
     }    
 }
 
-// ! DOES NOT CHECK FOR OBSTACLES IN THE WAY
-bool Guard::wouldEnterLoop() {
-    Direction lookRight { getTurnRightDirection() };
-    bool movingVertical { lookRight == Guard::up   || lookRight == Guard::down };
-    bool movingPositive { lookRight == Guard::down || lookRight == Guard::right };
+const std::vector<Pair<Pair<size_t>, Guard::Direction>> Guard::getHistory() const {
+    return m_history;
+}
 
-    // Static position is the one not changing when walking
-    // When walking vertical, it's the x pos (first), otherwise the y pos, second
-    size_t staticPos { movingVertical ? getPosition().first : getPosition().second };
+bool Guard::isInLoop() {
+    if (m_history.size() < 4) return false; // Can't be in a loop with less than 4 moves
 
-    // Varying is the one that is moving
-    size_t varingPos { movingVertical ? getPosition().second : getPosition().first };
-
-    // Traverse history backwards
-    for (Pair<Pair<size_t>, Direction> step : m_history) {
-        // I also hate this
-        if (step.second != lookRight) continue;
-
-        size_t stepStatic { movingVertical ? step.first.first : step.first.second };
-        size_t stepVaring { movingVertical ? step.first.second : step.first.first };
-
-        if (
-            stepStatic == staticPos && (
-            (movingPositive && varingPos <= stepVaring) ||
-            (!movingPositive && varingPos >= stepVaring))
-        ) {
-            return true;
-        }
+    // Try and find our last move in the history
+    Pair<Pair<size_t>, Direction> currentPos { getPosition(), m_direction };
+    for (size_t i { m_history.size()-3 }; i --> 0 ;)
+    {
+        if (currentPos == m_history.at(i)) return true;
     }
 
+    // We have not been in this exact location & direction
+    // so we are not (yet) in a loop
     return false;
 }
 

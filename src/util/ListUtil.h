@@ -31,6 +31,27 @@ namespace ListUtil {
             std::swap(arr[i], arr[smallestIndex]);
         }
     }
+
+    template <typename T>
+    inline bool hasElement(const std::vector<T>& arr, const T& toFind)
+    {
+        for (T el : arr)
+            if (el == toFind) return true;
+        
+        return false;
+    }
+
+    template <typename T>
+    inline std::vector<T> unique(const std::vector<T>& arr)
+    {
+        std::vector<T> uniqueItems {};
+        for (T el : arr) {
+            if (!ListUtil::hasElement(uniqueItems, el)) uniqueItems.push_back(el);
+        }
+        return uniqueItems;
+    }
+
+
 }
 
 #endif

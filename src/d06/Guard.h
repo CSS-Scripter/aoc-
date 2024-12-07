@@ -7,7 +7,7 @@
 #include <vector>
 
 class Guard {
-private:
+public:
     enum Direction {
         up = 0,
         right,
@@ -16,6 +16,7 @@ private:
         max_directions,
     };
 
+private:
     // Vector, with pairs of coords, and direction
     std::vector<Pair<Pair<size_t>, Direction>> m_history { };
 
@@ -37,8 +38,10 @@ public:
     void turnRight();
     Pair<int> peek();
     Pair<size_t> getPosition() const;
-    bool wouldEnterLoop();
     void reset();
+
+    const std::vector<Pair<Pair<size_t>, Direction>> getHistory() const;
+    bool isInLoop();
 
 private:
     void addToHistory();

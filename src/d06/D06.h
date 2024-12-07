@@ -17,6 +17,9 @@ protected:
     void initializeInput();
     int p1();
     int p2();
+
+private:
+    bool isMapInLoop();
 };
 
 #endif

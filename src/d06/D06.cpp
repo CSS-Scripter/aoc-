@@ -10,11 +10,23 @@ int D06::p1() {
 };
 
 int D06::p2() {
-    m_map.reset(); // Reset map
+    std::vector<Pair<size_t>> steps { m_map.getSteps() };
 
     int total { 0 };
-    while (m_map.step()) {
-        if (m_map.wouldEnterLoop()) ++total;
-    };
+    for (auto step : steps) {
+        m_map.reset();
+        m_map.setTmpObstacle(step);
+        if (isMapInLoop()) {
+            ++total;
+        }
+    }
+
     return total;
 };
+
+bool D06::isMapInLoop() {
+    while (m_map.step()) {
+        if (m_map.isInLoop()) return true;
+    }
+    return false;
+}
