@@ -1,6 +1,7 @@
 #include "Guard.h"
 #include "../util/Pair.h"
 #include "../util/Optional.h"
+#include "../util/ListUtil.h"
 
 Pair<int> Guard::peek() {
     switch (m_direction)
@@ -26,12 +27,14 @@ void Guard::move() {
         case right: m_x += 1; break;
         default: break;
     }
-    addToHistory();
 }
 
 void Guard::turnRight() {
     m_direction = getTurnRightDirection();
-    addToHistory();
+
+    Pair<Pair<size_t>, Direction> turn { getPosition(), m_direction };
+    m_isInLoop = m_isInLoop || ListUtil::hasElement(m_turnHistory, turn);
+    m_turnHistory.push_back(turn);
 }
 
 Guard::Direction Guard::getTurnRightDirection() {
@@ -42,38 +45,18 @@ Guard::Direction Guard::getTurnRightDirection() {
         case down:  return left;
         case left:  return up;
         default:    return up;
-    }    
-}
-
-const std::vector<Pair<Pair<size_t>, Guard::Direction>> Guard::getHistory() const {
-    return m_history;
+    }
 }
 
 bool Guard::isInLoop() {
-    if (m_history.size() < 4) return false; // Can't be in a loop with less than 4 moves
-
-    if (m_history.size() % 1500 != 0) return false; // Optimization? Only check every 1500th step
-
-    // Try and find our last move in the history
-    Pair<Pair<size_t>, Direction> currentPos { getPosition(), m_direction };
-    for (size_t i { m_history.size()-3 }; i --> 0 ;)
-    {
-        if (currentPos == m_history.at(i)) return true;
-    }
-
-    // We have not been in this exact location & direction
-    // so we are not (yet) in a loop
-    return false;
+    return m_isInLoop;
 }
 
 void Guard::reset() {
-    m_history.clear();
+    m_turnHistory.clear();
+    m_isInLoop = false;
+
     m_x = m_origin_x;
     m_y = m_origin_y;
     m_direction = up;
-}
-
-void Guard::addToHistory()
-{
-    m_history.push_back({ getPosition(), m_direction });
 }

@@ -46,14 +46,12 @@ bool Map::isInLoop() {
 }
 
 std::vector<Pair<size_t>> Map::getSteps() {
-    std::vector<Pair<Pair<size_t>, Guard::Direction>> history { m_guard.getHistory() };
+    std::vector<Pair<size_t>> visitedTiles {};
+    for(size_t y { 0 }; y < m_map.size(); ++y)
+        for(size_t x { 0 }; x < m_map[y].size(); ++x)
+            if (m_map[y][x] == Map::visited) visitedTiles.push_back(Pair<size_t>{x, y});
 
-    std::vector<Pair<size_t>> steps { };
-    for (Pair<Pair<size_t>, Guard::Direction> step : history) {
-        steps.push_back(step.first);
-    }
-
-    return ListUtil::unique(steps);
+    return visitedTiles;
 }
 
 
