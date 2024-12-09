@@ -82,10 +82,11 @@ void Map::reset() {
         std::vector<Map::TileType> row { m_map[y] };
         for (size_t x { 0 }; x < row.size(); ++x)
         {
-            if (m_guard.getPosition() == Pair<size_t>{ x, y }) m_map[y][x] = Map::visited;
-            else if (row[x] == Map::visited) m_map[y][x] = Map::empty;
+            if (row[x] == Map::visited) m_map[y][x] = Map::empty;
         }
     }
+    Pair<size_t> guardPosition { m_guard.getPosition() };
+    m_map[guardPosition.second][guardPosition.first] = Map::visited;
 }
 
 
@@ -125,11 +126,14 @@ std::ostream& operator<<(std::ostream& output, const Map& val)
         {
             Map::TileType tile { row.at(x) };
             Pair<size_t> guard { val.m_guard.getPosition() };
-            if (val.m_tmpObstacle.hasValue() && val.m_tmpObstacle.getValue().first == x && val.m_tmpObstacle.getValue().second == y) output << 'O';
+            if (
+                val.m_tmpObstacle.hasValue() &&
+                val.m_tmpObstacle.getValue().first == x &&
+                val.m_tmpObstacle.getValue().second == y)   output << 'O';
             else if (guard.first == x && guard.second == y) output << '^';
-            else if (tile == Map::empty)               output << '.';
-            else if (tile == Map::obstacle)            output << '#';
-            else if (tile == Map::visited)             output << 'X';
+            else if (tile == Map::empty)                    output << '.';
+            else if (tile == Map::obstacle)                 output << '#';
+            else if (tile == Map::visited)                  output << 'X';
         }
         output << '\n';
     }
