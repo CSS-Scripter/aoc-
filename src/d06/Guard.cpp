@@ -52,7 +52,7 @@ const std::vector<Pair<Pair<size_t>, Guard::Direction>> Guard::getHistory() cons
 bool Guard::isInLoop() {
     if (m_history.size() < 4) return false; // Can't be in a loop with less than 4 moves
 
-    if (m_history.size() % 1750 != 0) return false; // Optimization? Only check every 100th step
+    if (m_history.size() % 1500 != 0) return false; // Optimization? Only check every 1500th step
 
     // Try and find our last move in the history
     Pair<Pair<size_t>, Direction> currentPos { getPosition(), m_direction };
