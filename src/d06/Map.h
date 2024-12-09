@@ -23,12 +23,11 @@ public:
 
     bool step();
     int countVisited();
-    bool isInLoop();
     void reset();
     void resetTmpObstacle();
     void setTmpObstacle(Pair<size_t> pos);
-
-    std::vector<Pair<size_t>> getSteps();
+    bool isInLoop() const;
+    std::vector<Pair<size_t>> getSteps() const;
 
     friend std::istream& operator>>(std::istream& input, Map& val);
     friend std::ostream& operator<<(std::ostream& output, const Map& val);

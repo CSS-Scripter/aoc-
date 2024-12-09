@@ -41,11 +41,11 @@ int Map::countVisited() {
     return total;
 }
 
-bool Map::isInLoop() {
+bool Map::isInLoop() const {
     return m_guard.isInLoop();
 }
 
-std::vector<Pair<size_t>> Map::getSteps() {
+std::vector<Pair<size_t>> Map::getSteps() const {
     std::vector<Pair<size_t>> visitedTiles {};
     for(size_t y { 0 }; y < m_map.size(); ++y)
         for(size_t x { 0 }; x < m_map[y].size(); ++x)

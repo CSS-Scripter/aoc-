@@ -19,30 +19,30 @@ public:
 private:
     std::vector<Pair<Pair<size_t>, Direction>> m_turnHistory { };
 
-    int m_x { };
-    int m_y { };
-    int m_origin_x { };
-    int m_origin_y { };
-    Direction m_direction { };
-    bool m_isInLoop { };
+    int       m_x           { };
+    int       m_y           { };
+    int       m_origin_x    { };
+    int       m_origin_y    { };
+    bool      m_isInLoop    { };
+    Direction m_direction   { };
 
 public:
     Guard(int x, int y)
-    : m_x { x }
-    , m_y { y }
-    , m_origin_x { x }
-    , m_origin_y { y }
+    : m_x           { x }
+    , m_y           { y }
+    , m_origin_x    { x }
+    , m_origin_y    { y }
     { };
 
     void move();
     void turnRight();
-    Pair<int> peek();
-    Pair<size_t> getPosition() const;
     void reset();
-    bool isInLoop();
+    bool isInLoop() const;
+    Pair<int> peek() const;
+    Pair<size_t> getPosition() const;
 
 private:
-    Direction getTurnRightDirection();
+    Direction getTurnRightDirection() const;
 };
 
 #endif

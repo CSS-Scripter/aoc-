@@ -3,7 +3,7 @@
 #include "../util/Optional.h"
 #include "../util/ListUtil.h"
 
-Pair<int> Guard::peek() {
+Pair<int> Guard::peek() const {
     switch (m_direction)
     {
         case up:    return { m_x,   m_y-1 };
@@ -37,7 +37,7 @@ void Guard::turnRight() {
     m_turnHistory.push_back(turn);
 }
 
-Guard::Direction Guard::getTurnRightDirection() {
+Guard::Direction Guard::getTurnRightDirection() const {
     switch (m_direction)
     {
         case up:    return right;
@@ -48,7 +48,7 @@ Guard::Direction Guard::getTurnRightDirection() {
     }
 }
 
-bool Guard::isInLoop() {
+bool Guard::isInLoop() const {
     return m_isInLoop;
 }
 
