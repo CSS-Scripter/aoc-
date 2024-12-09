@@ -1,4 +1,5 @@
 #include "D06.h"
+#include "../util/Clock.h"
 
 void D06::initializeInput() {
     m_input >> m_map;
@@ -10,6 +11,8 @@ int D06::p1() {
 };
 
 int D06::p2() {
+    Clock c { };
+    c.start();
     std::vector<Pair<size_t>> steps { m_map.getSteps() };
 
     int total { 0 };

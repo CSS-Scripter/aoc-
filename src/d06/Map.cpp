@@ -79,11 +79,11 @@ void Map::reset() {
     m_guard.reset();
     for (size_t y { 0 }; y < m_map.size(); ++y)
     {
-        std::vector<Map::TileType> row { m_map.at(y) };
+        std::vector<Map::TileType> row { m_map[y] };
         for (size_t x { 0 }; x < row.size(); ++x)
         {
             if (m_guard.getPosition() == Pair<size_t>{ x, y }) m_map[y][x] = Map::visited;
-            else if (row.at(x) == Map::visited) m_map[y][x] = Map::empty;
+            else if (row[x] == Map::visited) m_map[y][x] = Map::empty;
         }
     }
 }
