@@ -13,8 +13,8 @@ int main()
     D03().run();
     D04().run();
     D05().run();
-    D06().run();
-    D07().run();
+    D06().run(); // p2 800ms runtime, not great
+    D07().run(); // p2 8 second runtime, bad
     
     return 0;
 }
