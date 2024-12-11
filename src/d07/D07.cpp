@@ -20,5 +20,13 @@ int D07::p1() {
 };
 
 int D07::p2() {
-    return 0;
+    // 12'506'062'871'850 is too low
+
+    uint64_t total { };
+    for (auto e : m_equations) {
+        if (e.hasSolutionTwo())
+            total += e.getResult();
+    }
+    std::cout << '\n' << total << '\n';
+    return static_cast<int>(total);
 };
