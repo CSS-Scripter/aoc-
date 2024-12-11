@@ -52,6 +52,25 @@ namespace ListUtil {
     }
 
 
+    inline void generateCombinations(const std::vector<char>& options, size_t n, std::string current, std::vector<std::string>& results) {
+        if (current.size() == n) {
+            results.push_back(current);
+            return;
+        }
+
+        for (char option : options) {
+            generateCombinations(options, n, current + option, results);
+        }
+    }
+
+
+    inline std::vector<std::string> createCombinations(const std::vector<char>& options, size_t n) {
+        std::vector<std::string> results;
+        generateCombinations(options, n, "", results);
+        return results;
+    }
+
+
 }
 
 #endif
