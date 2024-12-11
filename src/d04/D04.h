@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-class D04 : Day
+class D04 : Day<int>
 {
 private:
     std::vector<std::string> m_grid {};

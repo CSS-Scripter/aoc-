@@ -6,7 +6,7 @@
 
 #include <vector>
 
-class D02 : Day
+class D02 : Day<int>
 {
 private:
     std::vector<Level> m_levels { };

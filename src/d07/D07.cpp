@@ -7,26 +7,20 @@ void D07::initializeInput() {
         m_equations.push_back(e);
 };
 
-int D07::p1() {
-    // 12'506'062'871'850 is too low
-
+uint64_t D07::p1() {
     uint64_t total { };
     for (auto e : m_equations) {
         if (e.hasSolution())
             total += e.getResult();
     }
-    std::cout << '\n' << total << '\n';
-    return static_cast<int>(total);
+    return total;
 };
 
-int D07::p2() {
-    // 12'506'062'871'850 is too low
-
+uint64_t D07::p2() {
     uint64_t total { };
     for (auto e : m_equations) {
         if (e.hasSolutionTwo())
             total += e.getResult();
     }
-    std::cout << '\n' << total << '\n';
-    return static_cast<int>(total);
+    return total;
 };

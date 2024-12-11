@@ -5,7 +5,7 @@
 
 #include <vector>
 
-class D01 : Day
+class D01 : Day<int>
 {
 private:
     std::vector<int> l1 {};

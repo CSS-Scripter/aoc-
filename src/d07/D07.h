@@ -8,7 +8,7 @@
 
 #include <vector>
 
-class D07 : Day
+class D07 : Day<uint64_t>
 {
 private:
     std::vector<Equation> m_equations { };
@@ -19,8 +19,8 @@ public:
 
 protected:
     void initializeInput();
-    int p1();
-    int p2();
+    uint64_t p1();
+    uint64_t p2();
 };
 
 #endif

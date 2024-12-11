@@ -4,7 +4,7 @@
 #include "../util/Day.h"
 #include "Map.h"
 
-class D06 : Day
+class D06 : Day<int>
 {
 private:
     Map m_map {};

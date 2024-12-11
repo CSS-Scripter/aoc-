@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 
+template <typename T>
 class Day {
 private:
     std::string   m_inputFolder { "./src/inputs/" };
@@ -30,8 +31,8 @@ public:
 
 protected:
     virtual void initializeInput() = 0;
-    virtual int p1() = 0;
-    virtual int p2() = 0;
+    virtual T p1() = 0;
+    virtual T p2() = 0;
 
     inline std::ifstream& getInput() {
         return m_input;

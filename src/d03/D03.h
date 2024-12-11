@@ -9,7 +9,7 @@
 #include <string>
 #include <string_view>
 
-class D03 : Day
+class D03 : Day<int>
 {
 private:
     std::vector<std::string> m_lines {};

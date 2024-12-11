@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 
-class D05 : Day
+class D05 : Day<int>
 {
 private:
     std::vector<BookUpdates> m_updates { };
