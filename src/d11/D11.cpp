@@ -1,5 +1,7 @@
 #include "D11.h"
 
+#include "../util/Pair.h"
+
 #include <cmath>
 
 void D11::initializeInput() {
@@ -14,15 +16,8 @@ void D11::initializeInput() {
 }
 
 uint64_t D11::p1() {
-    // 163'776 is too low
-
     for (int i { 0 }; i < 25; ++i)
-    {
         blink();
-        // std::cout << "\nBlink " << i << ": " << countStones() << ". Stones: \n";
-        // for (auto e : m_stones)
-        //     std::cout << "- " << e.first << ": " << e.second << '\n';
-    }
 
     return countStones();
 }
@@ -30,9 +25,7 @@ uint64_t D11::p1() {
 uint64_t D11::p2() {
     // We're already at blink 25 from p1
     for (int i { 25 }; i < 75; ++i)
-    {
         blink();
-    }
 
     return countStones();
 };
@@ -58,24 +51,22 @@ void D11::blink() {
         // If stone is even, split into 2 stones
         uint64_t numCount { findNumCount(e.first) };
         if (numCount % 2 == 0) {
-            uint64_t base { static_cast<uint64_t>(pow(10, double(numCount/2))) };
-            uint64_t stone1 { e.first / base };
-            uint64_t stone2 { e.first % base };
+            Pair<uint64_t> stones { splitStone(e.first) };
             uint64_t count { e.second };
-            if (newStones.find(stone1) == newStones.end())
+            if (newStones.find(stones.first) == newStones.end())
             {
-                newStones.insert(std::map<uint64_t, uint64_t>::value_type(stone1, count));
+                newStones.insert(std::map<uint64_t, uint64_t>::value_type(stones.first, count));
             } else
             {
-                newStones[stone1] += count;
+                newStones[stones.first] += count;
             }
 
-            if (newStones.find(stone2) == newStones.end())
+            if (newStones.find(stones.second) == newStones.end())
             {
-                newStones.insert(std::map<uint64_t, uint64_t>::value_type(stone2, count));
+                newStones.insert(std::map<uint64_t, uint64_t>::value_type(stones.second, count));
             } else
             {
-                newStones[stone2] += count;
+                newStones[stones.second] += count;
             }
             continue;
         }
@@ -102,6 +93,13 @@ uint64_t D11::findNumCount(uint64_t x) {
         x /= 10;
     }
     return nums;
+}
+
+Pair<uint64_t> D11::splitStone(uint64_t stone)
+{
+    uint64_t numCount { findNumCount(stone) };
+    uint64_t base { static_cast<uint64_t>(pow(10, double(numCount/2))) };
+    return { stone / base, stone % base };
 }
 
 uint64_t D11::countStones() {

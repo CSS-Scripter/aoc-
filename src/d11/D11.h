@@ -2,6 +2,7 @@
 #define D11_H
 
 #include "../util/Day.h"
+#include "../util/Pair.h"
 
 #include <map>
 
@@ -22,6 +23,7 @@ protected:
 private:
     void blink();
     uint64_t findNumCount(uint64_t x);
+    Pair<uint64_t> splitStone(uint64_t stone);
     uint64_t countStones();
 };
 
